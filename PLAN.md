@@ -32,7 +32,7 @@ Key gameplay challenge: Can players collect and craft tokens from nearby locatio
 - [x] Use loops to draw a whole grid of cells on the map
 - [x] Populate cells with same initial values on creation
 - [x] Displaying token values on cell
-- [ ] Luck based spawning of token in cells
+- [x] Luck based spawning of token in cells
 
 #### Inventory
 

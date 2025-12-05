@@ -8,6 +8,9 @@ import "./style.css"; // student-controlled page style
 // Fix missing marker images
 import "./_leafletWorkaround.ts"; // fixes for missing Leaflet images
 
+// Import our luck function
+import luck from "./_luck.ts";
+
 // Create UI elements
 const controlPanelDiv = document.createElement("div");
 controlPanelDiv.id = "controlPanel";
@@ -31,6 +34,8 @@ const GAMEPLAY_ZOOM_LEVEL = 19;
 const TILE_DEGREES = 1e-4;
 const MAX_CELL_CREATION_X = 23;
 const MAX_CELL_CREATION_Y = 9;
+const MAP_RANDOMIZE_NUMBER = 1912125; //It's "slay" converted to numbers
+
 //Basic Leaflet Map
 const map = leaflet.map(mapDiv, {
   center: CLASSROOM_LATLNG,
@@ -63,12 +68,11 @@ interface Inventory {
 }
 
 const playerInventory: Inventory = {
-  haveToken: true,
+  haveToken: false,
   value: 0,
 };
 
 updateInventoryScreen(playerInventory);
-
 //Function to update inventory screen
 function updateInventoryScreen(player: Inventory) {
   statusPanelDiv.innerHTML = "INVENTORY<p>";
@@ -89,8 +93,15 @@ function createCell(i: number, j: number) {
     [origin.lat + (i + 1) * TILE_DEGREES, origin.lng + (j + 1) * TILE_DEGREES],
   ]);
 
-  //Give each rect a value (All starter cells begin with 2)
-  let pointValue: number = 2;
+  //Randomly create values for boxes
+  let pointValue: number;
+  const randValue = luck(`${MAP_RANDOMIZE_NUMBER}|${j}|${i}`);
+  if (randValue < 0.65) pointValue = 0;
+  else if (randValue < 0.80) pointValue = 3;
+  else if (randValue < 0.85) pointValue = 6;
+  else if (randValue < 0.95) pointValue = 12;
+  else if (randValue < 0.99) pointValue = 24;
+  else pointValue = 48;
 
   // Add new rectangle to map
   const rect = leaflet.rectangle(bounds);
