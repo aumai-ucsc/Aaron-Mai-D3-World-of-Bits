@@ -66,9 +66,22 @@ function createCell(i: number, j: number) {
     [origin.lat + (i + 1) * TILE_DEGREES, origin.lng + (j + 1) * TILE_DEGREES],
   ]);
 
-  //Add new rectangle to map
+  // Add new rectangle to map
   const rect = leaflet.rectangle(bounds);
   rect.addTo(map);
+
+  //Each cell gets a popup
+  rect.bindPopup(() => {
+    //Give each rect a value (All starter cells begin with 2)
+    const pointValue: number = 2;
+
+    // Add popup to cell containing information and value
+    const popupDiv = document.createElement("div");
+    popupDiv.innerHTML =
+      `<div>LOCATION (${i},${j}) | <span id="value">${pointValue}</span>`;
+
+    return popupDiv;
+  });
 }
 
 //Loop to call function from x -20 to 20 and y-10 to 10

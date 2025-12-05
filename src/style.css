@@ -11,3 +11,7 @@
   width: 90%;
   height: 80vh;
 }
+
+#value {
+  color: rgb(255, 0, 0);
+}

@@ -30,7 +30,7 @@ Key gameplay challenge: Can players collect and craft tokens from nearby locatio
 - [x] Draw the player's location on the map
 - [x] Draw a rectangle representing one cell on the map
 - [x] Use loops to draw a whole grid of cells on the map
-- [ ] Populate cells with same initial values on creation
+- [x] Populate cells with same initial values on creation
 
 #### Inventory
 
