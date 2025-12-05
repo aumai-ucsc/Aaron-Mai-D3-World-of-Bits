@@ -57,29 +57,25 @@ playerMarker.bindTooltip("HERE YOU ARE!");
 playerMarker.addTo(map);
 
 // Inventory Data
-const inventoryValues: Record<number, number> = {
-  2: 0,
-  4: 0,
-  8: 0,
-  16: 0,
-  32: 0,
-  64: 0,
-  128: 0,
-  256: 0,
-  512: 0,
-  1024: 0,
-  2048: 0,
-  4096: 0,
+interface Inventory {
+  haveToken: boolean;
+  value?: number;
+}
+
+const playerInventory: Inventory = {
+  haveToken: true,
+  value: 0,
 };
 
-updateInventoryScreen();
+updateInventoryScreen(playerInventory);
 
 //Function to update inventory screen
-function updateInventoryScreen() {
+function updateInventoryScreen(player: Inventory) {
   statusPanelDiv.innerHTML = "INVENTORY<p>";
-  for (const [key, value] of Object.entries(inventoryValues)) {
-    statusPanelDiv.innerHTML +=
-      `#${key}'s: <span id="value">${value}</span>   |   `;
+  if (player.haveToken == true) {
+    statusPanelDiv.innerHTML += "NO TOKEN";
+  } else {
+    statusPanelDiv.innerHTML += `${player.value}`;
   }
 }
 
@@ -93,30 +89,43 @@ function createCell(i: number, j: number) {
     [origin.lat + (i + 1) * TILE_DEGREES, origin.lng + (j + 1) * TILE_DEGREES],
   ]);
 
+  //Give each rect a value (All starter cells begin with 2)
+  let pointValue: number = 2;
+
   // Add new rectangle to map
   const rect = leaflet.rectangle(bounds);
   rect.addTo(map);
 
   //Add value to rectangles
   const valueIcon = leaflet.divIcon({
-    html: `<span id = "value">2</span>`,
+    html: `<span id = "value">${pointValue}</span>`,
     iconSize: [20, 20],
     iconAnchor: [10, 10],
   });
-  leaflet.marker(rect.getCenter(), { icon: valueIcon, interactive: false })
-    .addTo(map);
+
+  const valueMarker = leaflet.marker(rect.getCenter(), {
+    icon: valueIcon,
+    interactive: false,
+  });
+  valueMarker.addTo(map);
 
   //Each cell gets a tooltip
   rect.bindTooltip(() => {
-    //Give each rect a value (All starter cells begin with 2)
-    const pointValue: number = 2;
-
     // Add popup to cell containing information and value
     const tooltipDiv = document.createElement("div");
     tooltipDiv.innerHTML =
       `<div>LOCATION (${i},${j}) | <span id="value">${pointValue}</span>`;
 
     return tooltipDiv;
+  });
+
+  //Pickup value from cell
+  rect.on("click", () => {
+    if (pointValue > 0) {
+      pointValue = 0;
+
+      valueMarker.setIcon(valueIcon);
+    }
   });
 }
 
