@@ -14,7 +14,6 @@ mapDiv.id = "map";
 document.body.append(mapDiv);
 
 //Variables for the map
-
 const CLASSROOM_LATLNG = leaflet.latLng(
   36.997936938057016,
   -122.05703507501151,
@@ -40,3 +39,9 @@ leaflet
       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   })
   .addTo(map);
+
+// Player Marker
+// Add a marker to represent the player
+const playerMarker = leaflet.marker(CLASSROOM_LATLNG);
+playerMarker.bindTooltip("HERE YOU ARE!");
+playerMarker.addTo(map);
