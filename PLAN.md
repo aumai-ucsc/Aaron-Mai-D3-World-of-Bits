@@ -26,7 +26,7 @@ Key gameplay challenge: Can players collect and craft tokens from nearby locatio
 
 #### Map
 
-- [ ] Put a basic leaflet map on the screen
+- [x] Put a basic leaflet map on the screen
 - [ ] Draw the player's location on the map
 - [ ] Draw a rectangle representing one cell on the map
 - [ ] Use loops to draw a whole grid of cells on the map
