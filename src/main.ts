@@ -29,7 +29,8 @@ const CLASSROOM_LATLNG = leaflet.latLng(
 
 const GAMEPLAY_ZOOM_LEVEL = 19;
 const TILE_DEGREES = 1e-4;
-
+const MAX_CELL_CREATION_X = 23;
+const MAX_CELL_CREATION_Y = 9;
 //Basic Leaflet Map
 const map = leaflet.map(mapDiv, {
   center: CLASSROOM_LATLNG,
@@ -55,12 +56,24 @@ const playerMarker = leaflet.marker(CLASSROOM_LATLNG);
 playerMarker.bindTooltip("HERE YOU ARE!");
 playerMarker.addTo(map);
 
-//Test rectange
-const origin = CLASSROOM_LATLNG;
-const bounds = leaflet.latLngBounds([
-  [origin.lat + 0 * TILE_DEGREES, origin.lng + 0 * TILE_DEGREES],
-  [origin.lat + (0 + 1) * TILE_DEGREES, origin.lng + (0 + 1) * TILE_DEGREES],
-]);
+//Function to create a cell based on a position relative to the player
+function createCell(i: number, j: number) {
+  // Create an origin point based on player loction
+  const origin = CLASSROOM_LATLNG;
+  // Convert index from player to LatLang bounds for leaflet map
+  const bounds = leaflet.latLngBounds([
+    [origin.lat + i * TILE_DEGREES, origin.lng + j * TILE_DEGREES],
+    [origin.lat + (i + 1) * TILE_DEGREES, origin.lng + (j + 1) * TILE_DEGREES],
+  ]);
 
-const rect = leaflet.rectangle(bounds);
-rect.addTo(map);
+  //Add new rectangle to map
+  const rect = leaflet.rectangle(bounds);
+  rect.addTo(map);
+}
+
+//Loop to call function from x -20 to 20 and y-10 to 10
+for (let i = -MAX_CELL_CREATION_Y; i < MAX_CELL_CREATION_Y; i++) {
+  for (let j = -MAX_CELL_CREATION_X; j < MAX_CELL_CREATION_X; j++) {
+    createCell(i, j);
+  }
+}
