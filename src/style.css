@@ -3,6 +3,9 @@
 }
 
 #statusPanel {
+  margin: auto;
+  text-align: center;
+  font-size: 200%;
   padding: 1rem;
 }
 

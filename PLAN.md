@@ -34,7 +34,7 @@ Key gameplay challenge: Can players collect and craft tokens from nearby locatio
 
 #### Inventory
 
-- [ ] Implement an inventory tab for the player
+- [x] Implement an inventory tab for the player
 - [ ] Add a pickup of chached item and removal of cell
 - [ ] Show values of tokens players hold
 

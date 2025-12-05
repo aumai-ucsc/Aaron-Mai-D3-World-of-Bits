@@ -56,6 +56,33 @@ const playerMarker = leaflet.marker(CLASSROOM_LATLNG);
 playerMarker.bindTooltip("HERE YOU ARE!");
 playerMarker.addTo(map);
 
+// Inventory Data
+const inventoryValues: Record<number, number> = {
+  2: 0,
+  4: 0,
+  8: 0,
+  16: 0,
+  32: 0,
+  64: 0,
+  128: 0,
+  256: 0,
+  512: 0,
+  1024: 0,
+  2048: 0,
+  4096: 0,
+};
+
+updateInventoryScreen();
+
+//Function to update inventory screen
+function updateInventoryScreen() {
+  statusPanelDiv.innerHTML = "INVENTORY<p>";
+  for (const [key, value] of Object.entries(inventoryValues)) {
+    statusPanelDiv.innerHTML +=
+      `#${key}'s: <span id="value">${value}</span>   |   `;
+  }
+}
+
 //Function to create a cell based on a position relative to the player
 function createCell(i: number, j: number) {
   // Create an origin point based on player loction
