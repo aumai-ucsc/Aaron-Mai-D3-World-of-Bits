@@ -28,11 +28,11 @@ Key gameplay challenge: Can players collect and craft tokens from nearby locatio
 
 - [x] Put a basic leaflet map on the screen
 - [x] Draw the player's location on the map
-- [ ] Draw a rectangle representing one cell on the map
-- [ ] Use loops to draw a whole grid of cells on the map
-- [ ] Populate cells with same initial values on creation
-- [ ] Displaying token values on cell
-- [ ] Luck based spawning of token in cells
+- [x] Draw a rectangle representing one cell on the map
+- [x] Use loops to draw a whole grid of cells on the map
+- [x] Populate cells with same initial values on creation
+- [x] Displaying token values on cell
+- [x] Luck based spawning of token in cells
 
 #### Inventory
 
