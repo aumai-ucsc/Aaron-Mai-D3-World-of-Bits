@@ -97,17 +97,26 @@ function createCell(i: number, j: number) {
   const rect = leaflet.rectangle(bounds);
   rect.addTo(map);
 
-  //Each cell gets a popup
-  rect.bindPopup(() => {
+  //Add value to rectangles
+  const valueIcon = leaflet.divIcon({
+    html: `<span id = "value">2</span>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+  });
+  leaflet.marker(rect.getCenter(), { icon: valueIcon, interactive: false })
+    .addTo(map);
+
+  //Each cell gets a tooltip
+  rect.bindTooltip(() => {
     //Give each rect a value (All starter cells begin with 2)
     const pointValue: number = 2;
 
     // Add popup to cell containing information and value
-    const popupDiv = document.createElement("div");
-    popupDiv.innerHTML =
+    const tooltipDiv = document.createElement("div");
+    tooltipDiv.innerHTML =
       `<div>LOCATION (${i},${j}) | <span id="value">${pointValue}</span>`;
 
-    return popupDiv;
+    return tooltipDiv;
   });
 }
 
